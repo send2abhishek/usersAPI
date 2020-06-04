@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-
+//Mongo DB connectivity
+require("./database/dbConnect");
 // cors enable
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");

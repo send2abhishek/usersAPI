@@ -1,0 +1,8 @@
+{
+  "name": "qed42 development",
+  "dburl": "mongodb+srv://send2abhishek:aryan@cluster0-orw7v.mongodb.net/users",
+  "dbconnectMsg": "Db connected",
+  "App": "Application is listining at port ",
+  "dbConnectError": "error in connecting db",
+  "error": "Something Went Wrong"
+}
