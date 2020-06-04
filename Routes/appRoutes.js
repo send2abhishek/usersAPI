@@ -1,9 +1,6 @@
 const express = require("express");
 const route = express.Router();
+const controller = require("../Controllers/appController");
+route.get("/", controller.getAppData);
 
-route.get("/", (req, res) => {
-  res.status(201).json({
-    msg: "all gud",
-  });
-});
 module.exports = route;
