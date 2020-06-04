@@ -16,6 +16,7 @@ app.use((req, res, next) => {
 
 //Middelware for enabling read json body
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 //Application routes
 app.use("/", route);
 //for unknown routes
