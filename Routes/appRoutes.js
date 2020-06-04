@@ -39,7 +39,7 @@ const upload = multer({
 // all routes
 route.post("/avatar", upload.single("avatar"), controller.uploadFile);
 route.get("/", controller.getAppData);
-
+route.put("/save", controller.saveItem);
 route.post("/admin/login", validateUsers.validateUser, controller.login);
 route.post(
   "/admin/register",

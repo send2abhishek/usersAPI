@@ -5,10 +5,13 @@ const bcrypt = require("bcrypt");
 const config = require("config");
 const jwt = require("jsonwebtoken");
 
-const getAppData = (req, res) => {
-  res.status(201).json({
-    msg: "all gud",
-  });
+const getAppData = async (req, res, next) => {
+  try {
+    let getUsers = await itemModel.find({}, { __v: 0 });
+    return res.status(200).json(getUsers);
+  } catch (ex) {
+    next(ex);
+  }
 };
 
 const register = async (req, res, next) => {
@@ -145,9 +148,29 @@ const uploadFile = async (req, res, next) => {
   }
 };
 
+const saveItem = async (req, res, next) => {
+  try {
+    const updateDocument = await itemModel.findByIdAndUpdate(
+      req.body.Id,
+      {
+        $set: {
+          title: req.body.title,
+          mrp: req.body.mrp,
+          ratings: req.body.ratings,
+        },
+      },
+      { new: true }
+    );
+
+    res.status(200).json(updateDocument);
+  } catch (err) {
+    next(err);
+  }
+};
 module.exports = {
   getAppData,
   login,
   register,
   uploadFile,
+  saveItem,
 };
