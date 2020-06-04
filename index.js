@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const route = require("./Routes/appRoutes");
 //Mongo DB connectivity
 require("./database/dbConnect");
 // cors enable
@@ -15,12 +16,8 @@ app.use((req, res, next) => {
 
 //Middelware for enabling read json body
 app.use(express.json());
-
-app.get("/", (req, res) => {
-  res.status(201).json({
-    msg: "all gud",
-  });
-});
+//Application routes
+app.use("/", route);
 //for unknown routes
 app.use((req, res, next) => {
   const error = new Error("Page Not found");
