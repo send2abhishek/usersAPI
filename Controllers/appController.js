@@ -1,4 +1,5 @@
 const appModel = require("../Models/appModel");
+const itemModel = require("../Models/itemModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const config = require("config");
@@ -116,8 +117,37 @@ const queryUserFromDb = async (user) => {
     return new Error(config.get("error"));
   }
 };
+
+const uploadFile = async (req, res, next) => {
+  try {
+    const Id = new mongoose.Types.ObjectId();
+    const item = new itemModel({
+      _id: Id,
+      avatar: `${req.headers.host}/uploads/${req.file.originalname}`,
+    });
+
+    item
+      .save()
+      .then((result) => {
+        res.status(201).json({
+          message: config.get("fileUpload"),
+          id: Id,
+        });
+      })
+      .catch((error) => {
+        res.status(500).json({
+          message: config.get("error"),
+          info: error.message,
+        });
+      });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getAppData,
   login,
   register,
+  uploadFile,
 };
